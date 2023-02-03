@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/heikai/static/css/main.0f8e9163.css",
+    "main.js": "/heikai/static/js/main.3151c2f3.js",
+    "static/js/787.b8051ef2.chunk.js": "/heikai/static/js/787.b8051ef2.chunk.js",
+    "index.html": "/heikai/index.html",
+    "main.0f8e9163.css.map": "/heikai/static/css/main.0f8e9163.css.map",
+    "main.3151c2f3.js.map": "/heikai/static/js/main.3151c2f3.js.map",
+    "787.b8051ef2.chunk.js.map": "/heikai/static/js/787.b8051ef2.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0f8e9163.css",
+    "static/js/main.3151c2f3.js"
+  ]
+}
