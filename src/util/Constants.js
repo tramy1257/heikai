@@ -17,10 +17,20 @@ export const NumState = {
   TAKEN: 'TAKEN'
 };
 
+export const ScoreDir = {
+  UNKNOWN: 'UNKNOWN',
+  DESC: 'DESC',
+  ASC: 'ASC'
+};
+
 export class BoxColor {
   constructor(background, text) {
     this.background = background;
     this.text = text;
+  }
+
+  getCopy() {
+    return new BoxColor(this.background, this.text);
   }
 }
 

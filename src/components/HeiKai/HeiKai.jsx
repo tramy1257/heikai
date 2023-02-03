@@ -15,7 +15,9 @@ export default function HeiKai( {heikaiNum} ) {
         {heiKaiArr}
       </div>
       <span>=</span>
-      <div className="heiKaiScore flexCenterBoth">100</div>
+      <div style={{backgroundColor: HEIKAI_NOT_FILLED_COLOR}} className="heiKaiScore flexCenterBoth">
+        {heikaiNum * 5}
+      </div>
     </div>
   );
 }

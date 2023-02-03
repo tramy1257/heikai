@@ -15,7 +15,7 @@ export default function Ditlin( {ditlinNum} ) {
         {ditlinArr}
       </div>
       <span>=</span>
-      <DitlinBox size={40} value={10} />
+      <DitlinBox size={40} value={ditlinNum * (-5)} />
     </div>
   );
 }
