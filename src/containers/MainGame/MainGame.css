@@ -1,3 +1,18 @@
+.mainGame {
+  padding: 20px;
+  display: flex;
+  gap: 20px;
+}
+
+.mainGameLeft {
+  background-color: aquamarine;
+}
+
+.mainGameRight {
+  background-color: cadetblue;
+  gap: 20px;
+}
+
 .diceLines {
   /* background-color: tan; */
 

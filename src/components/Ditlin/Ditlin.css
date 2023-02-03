@@ -1,0 +1,25 @@
+.ditlin {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 10px;
+}
+
+.ditlinTracking {
+  display: flex;
+  flex-direction: row;
+}
+
+/* TODO: Use Polygon comp instead of ditlinBox */
+
+.ditlinBox {
+  position: relative;
+}
+
+.ditlinVal {
+  position: absolute;
+  left: 0;
+  top: 5%;
+  /* background-color: rgba(100, 100, 200, 0.6); */
+}

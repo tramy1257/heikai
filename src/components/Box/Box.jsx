@@ -1,10 +1,11 @@
 import './Box.css';
 import BoxOverlay from './BoxOverlay/BoxOverlay';
 
-const Box = ( {color, textColor, num, state} ) => {
+const Box = ( {color, num, state} ) => {
     return (
         <div className="boxContain">
-            <div className="box" 
+            <div 
+                className="box flexCenterBoth" 
                 style={{backgroundColor: color.background, color: color.text}}
             >
                 <span>{num}</span>

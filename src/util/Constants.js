@@ -1,5 +1,16 @@
 export const LINE_SIZE = 12;
 
+// HeiKai Config
+export const MAX_HEIKAI = 10;
+export const HEIKAI_FILLED_COLOR = "darkgrey";
+export const HEIKAI_NOT_FILLED_COLOR = "white";
+
+// Ditlin Config
+export const MAX_DITLIN = 5;
+export const DITLIN_FILLED_COLOR = "darkgrey";
+export const DITLIN_NOT_FILLED_COLOR = "white";
+
+
 export const NumState = {
   NONE: 'NONE',
   SKIPPED: 'SKIPPED',

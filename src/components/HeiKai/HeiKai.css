@@ -1,0 +1,28 @@
+.heiKai {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 10px;
+}
+
+.heiKaiTracking {
+  display: flex;
+  flex-direction: row;
+}
+
+.heiKaiBox {
+  width: 30px;
+  height: 30px;
+  box-sizing: border-box;
+  border: 2px solid black;
+  border-radius: 50%;
+}
+
+.heiKaiScore {
+  width: 40px;
+  height: 40px;
+  box-sizing: border-box;
+  border: 2px solid black;
+  border-radius: 50%;
+}
