@@ -1,0 +1,21 @@
+.numRow {
+  /* background-color: orchid; */
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  justify-content: space-between;
+}
+
+.equalSign {
+  display: flex;
+  align-items: center;
+  /* background-color: antiquewhite; */
+}
+
+.diceLine {
+  /* background-color: aliceblue; */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 10px;
+}

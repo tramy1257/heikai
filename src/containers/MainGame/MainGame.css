@@ -1,0 +1,7 @@
+.diceLines {
+  /* background-color: tan; */
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
