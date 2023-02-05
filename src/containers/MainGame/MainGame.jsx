@@ -14,7 +14,7 @@ class DiceLineStates {
   selectedNum = null;
   scoreDir = ScoreDir.UNKNOWN;
 
-  constructor(color, stateArr, selectedNum = null, scoreDir = ScoreDir.UNKNOWN/*, lastTaken = null*/) {
+  constructor(color, stateArr, selectedNum = null, scoreDir = ScoreDir.UNKNOWN) {
     this.color = color;
     this.stateArr = stateArr;
     this.selectedNum = selectedNum;

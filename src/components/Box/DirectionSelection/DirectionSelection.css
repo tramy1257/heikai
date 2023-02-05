@@ -1,0 +1,20 @@
+.arrowContainer {
+  position: relative;
+}
+
+.dirSelectionLeft, .dirSelectionRight {
+  top: 0;
+  z-index: 1;
+  position: absolute;
+  top: 50%;
+}
+
+.dirSelectionLeft {
+  transform: translateY(-50%) rotate(180deg);
+  left: -40px;
+}
+
+.dirSelectionRight {
+  left: 50px;
+  transform: translateY(-50%);
+}
