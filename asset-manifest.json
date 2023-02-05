@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/heikai/static/css/main.175d9639.css",
-    "main.js": "/heikai/static/js/main.bd31b844.js",
+    "main.css": "/heikai/static/css/main.d0efa662.css",
+    "main.js": "/heikai/static/js/main.6dfbad7d.js",
     "static/js/787.b8051ef2.chunk.js": "/heikai/static/js/787.b8051ef2.chunk.js",
     "index.html": "/heikai/index.html",
-    "main.175d9639.css.map": "/heikai/static/css/main.175d9639.css.map",
-    "main.bd31b844.js.map": "/heikai/static/js/main.bd31b844.js.map",
+    "main.d0efa662.css.map": "/heikai/static/css/main.d0efa662.css.map",
+    "main.6dfbad7d.js.map": "/heikai/static/js/main.6dfbad7d.js.map",
     "787.b8051ef2.chunk.js.map": "/heikai/static/js/787.b8051ef2.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.175d9639.css",
-    "static/js/main.bd31b844.js"
+    "static/css/main.d0efa662.css",
+    "static/js/main.6dfbad7d.js"
   ]
 }
