@@ -9,3 +9,31 @@
 .boxContain {
     position: relative;
 }
+
+/* .dirSelection {
+    width: 40px;
+    height: 40px;
+    background-color: rgba(200, 200, 100, 0.7);
+    position: absolute;
+    left: 0;
+    top: 0;
+} */
+
+.dirSelectionLeft, .dirSelectionRight {
+    top: 0;
+    transform: translateY(50%);
+    z-index: 1;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: tan;
+}
+
+.dirSelectionLeft {
+    left: -25px;
+}
+
+.dirSelectionRight {
+    left: 45px;
+    background-color: tan;
+}
