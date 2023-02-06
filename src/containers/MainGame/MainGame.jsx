@@ -1,6 +1,6 @@
 import Ditlin from "../../components/Ditlin/Ditlin";
 import HeiKai from "../../components/HeiKai/HeiKai";
-import {LINE_SIZE, NumState, ScoreDir} from "../../util/Constants.js";
+import {LINE_SIZE, MAX_HEIKAI, NumState, ScoreDir} from "../../util/Constants.js";
 import { LineColor } from "../../util/Constants";
 import DiceLine from "../DiceLine/DiceLine";
 import "./MainGame.css";
@@ -13,12 +13,16 @@ class DiceLineStates {
   stateArr;
   selectedNum = null;
   scoreDir = ScoreDir.UNKNOWN;
+  consecutiveTake = 0;
+  heiKaiStartNumArr = [];
 
-  constructor(color, stateArr, selectedNum = null, scoreDir = ScoreDir.UNKNOWN) {
+  constructor(color, stateArr, selectedNum = null, scoreDir = ScoreDir.UNKNOWN, consecutiveTake = 0, heiKaiStartNumArr = []) {
     this.color = color;
     this.stateArr = stateArr;
     this.selectedNum = selectedNum;
     this.scoreDir = scoreDir;
+    this.consecutiveTake = consecutiveTake;
+    this.heiKaiStartNumArr = heiKaiStartNumArr;
   }
 
   // Return whether a number is taken successfully
@@ -30,7 +34,18 @@ class DiceLineStates {
 
     this.take(num);
     this.skipBehind(num);
+    ++this.consecutiveTake;
+
     return true;
+  }
+
+  checkForHeiKai() {
+    if (this.consecutiveTake === 3) {
+      this.consecutiveTake = 0;
+      return true;
+    }
+
+    return false;
   }
 
   setScoreDir(dir) {
@@ -43,6 +58,7 @@ class DiceLineStates {
 
   skip(num) {
     this.stateArr[num - 1] = NumState.SKIPPED;
+    this.consecutiveTake = 0;
   }
 
   isAvailable(num) {
@@ -86,6 +102,7 @@ const MainGame = () => {
     const [diceLineStates, setDiceLineStates] = useState(defaultDiceLineStates);
     const [diceRollVals, setDiceRollVals] = useState(Array(LineColor.length + 1).fill(1));
     const [ditlinCount, setDitlinCount] = useState(0);
+    const [heikaiCount, setHeiKaiCount] = useState(0);
 
     useEffect(() => {
     }, [diceLineStates]);
@@ -104,7 +121,7 @@ const MainGame = () => {
         const stateCopy = copyState(diceLineStates);
 
         stateCopy[idx].setScoreDir(dir);
-        console.log(stateCopy[idx].tryToTake(stateCopy[idx].selectedNum));
+        stateCopy[idx].tryToTake(stateCopy[idx].selectedNum);
         stateCopy[idx].selectedNum = null;
 
         setDiceLineStates(stateCopy);
@@ -122,11 +139,17 @@ const MainGame = () => {
     const diceClickHandler = (diceIdx, diceVal) => {
       if (isNotWildcard(diceIdx)) {
         const stateCopy = copyState(diceLineStates);
+        const currLine = stateCopy[diceIdx];
 
-        if (stateCopy[diceIdx].scoreDir === ScoreDir.UNKNOWN) {
-          stateCopy[diceIdx].selectedNum = diceVal;
+        if (currLine.scoreDir === ScoreDir.UNKNOWN) {
+          currLine.selectedNum = diceVal;
         } else {
-          console.log(stateCopy[diceIdx].tryToTake(diceVal));
+          console.log(currLine.tryToTake(diceVal));
+        }
+
+        if (currLine.checkForHeiKai() && heikaiCount < MAX_HEIKAI) {
+          setHeiKaiCount(heikaiCount + 1);
+          currLine.heiKaiStartNumArr.push(currLine.scoreDir === ScoreDir.ASC ? diceVal - 2 : diceVal);
         }
 
         setDiceLineStates(stateCopy);
@@ -137,7 +160,7 @@ const MainGame = () => {
       const copy = [];
       for (const state of states) {
         copy.push(new DiceLineStates(state.color.getCopy(), 
-          [...state.stateArr], state.selectedNum, state.scoreDir));
+          [...state.stateArr], state.selectedNum, state.scoreDir, state.consecutiveTake, [...state.heiKaiStartNumArr]));
       }
       return copy;
     }
@@ -151,9 +174,14 @@ const MainGame = () => {
             <div className="mainGameLeft">
                 <div className="diceLines">
                     {diceLineStates.map((lineState, index) => 
-                      <DiceLine color={lineState.color} numArr={lineState.stateArr} selectedNum={lineState.selectedNum} setDirection={(dir) => handleSetDirection(index, dir)} lineIdx={index} key={lineState.color.background + index}/>)}
+                      <DiceLine color={lineState.color} 
+                        numArr={lineState.stateArr} 
+                        selectedNum={lineState.selectedNum} 
+                        setDirection={(dir) => handleSetDirection(index, dir)} 
+                        heiKaiStartNumArr={lineState.heiKaiStartNumArr}
+                        key={lineState.color.background + index}/>)}
                 </div>
-                <HeiKai heikaiNum={6}/>
+                <HeiKai heikaiNum={heikaiCount}/>
                 <Ditlin ditlinNum={ditlinCount}/>
             </div>
             <div className="mainGameRight flexRow">
