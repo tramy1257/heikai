@@ -5,11 +5,11 @@
 }
 
 .mainGameLeft {
-  background-color: aquamarine;
+  /* background-color: aquamarine; */
 }
 
 .mainGameRight {
-  background-color: cadetblue;
+  /* background-color: cadetblue; */
   gap: 20px;
 }
 

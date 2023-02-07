@@ -24,20 +24,21 @@ export const ScoreDir = {
 };
 
 export class BoxColor {
-  constructor(background, text) {
+  constructor(background, text, selectedBackground) {
     this.background = background;
     this.text = text;
+    this.selectedBackground = selectedBackground;
   }
 
   getCopy() {
-    return new BoxColor(this.background, this.text);
+    return new BoxColor(this.background, this.text, this.selectedBackground);
   }
 }
 
 export const LineColor = [
-  new BoxColor("salmon", "black"), 
-  new BoxColor("lightblue", "black"),
-  new BoxColor("lightgreen", "black"),
-  new BoxColor("khaki", "black"),
-  new BoxColor("ivory", "black")
+  new BoxColor("#E86A58", "black", "#8d2313"), 
+  new BoxColor("#FED45B", "black", "#ab8001"),
+  new BoxColor("#1BB28C", "black", "#0d5946"),
+  new BoxColor("#9BC7C5", "black", "#40716f"),
+  new BoxColor("#EFEEEA", "black", "#868066")
 ]

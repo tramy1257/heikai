@@ -103,9 +103,7 @@ const MainGame = () => {
     const [diceRollVals, setDiceRollVals] = useState(Array(LineColor.length + 1).fill(1));
     const [ditlinCount, setDitlinCount] = useState(0);
     const [heikaiCount, setHeiKaiCount] = useState(0);
-
-    useEffect(() => {
-    }, [diceLineStates]);
+    const [selectedWildcardNum, setSelectedWildcardNum] = useState(null);
 
     const handleRollDices = () => {
         const dicesCopy = [...diceRollVals];
@@ -153,6 +151,9 @@ const MainGame = () => {
         }
 
         setDiceLineStates(stateCopy);
+      } else {
+        // When wildcard dice is clicked
+        setSelectedWildcardNum(diceVal);
       }
     }
 
@@ -169,16 +170,22 @@ const MainGame = () => {
       return idx < diceRollVals.length - 1;
     }
 
+    const wildcardNumClickHandler = (idx) => {
+      if (selectedWildcardNum !== null && diceLineStates[idx].isAvailable(selectedWildcardNum)) {
+        diceClickHandler(idx, selectedWildcardNum);
+        setSelectedWildcardNum(null);
+      }
+    }
+
     return (
         <div className="mainGame">
             <div className="mainGameLeft">
                 <div className="diceLines">
                     {diceLineStates.map((lineState, index) => 
-                      <DiceLine color={lineState.color} 
-                        numArr={lineState.stateArr} 
-                        selectedNum={lineState.selectedNum} 
+                      <DiceLine lineState={lineState}
                         setDirection={(dir) => handleSetDirection(index, dir)} 
-                        heiKaiStartNumArr={lineState.heiKaiStartNumArr}
+                        selectedWildcardNum={selectedWildcardNum}
+                        boxClick={() => wildcardNumClickHandler(index)}
                         key={lineState.color.background + index}/>)}
                 </div>
                 <HeiKai heikaiNum={heikaiCount}/>
@@ -190,7 +197,11 @@ const MainGame = () => {
                         (color, idx) => 
                         <Dice filledColor={color.background} val={diceRollVals.at(idx)} onClickHandler={() => diceClickHandler(idx, diceRollVals.at(idx))} />
                     )}
-                    <Dice filledColor={"darkgrey"} val={diceRollVals[diceRollVals.length - 1]} onClickHandler={() => diceClickHandler(diceRollVals.length - 1)} />
+                    <Dice 
+                      filledColor={"#23362B"} 
+                      textColor="white" 
+                      val={diceRollVals[diceRollVals.length - 1]} 
+                      onClickHandler={() => diceClickHandler(diceRollVals.length - 1, diceRollVals[diceRollVals.length - 1])} />
                 </div>
                 <div className="gameButton flexCol">
                     <Button text="Roll Dices" onBtnClick={handleRollDices}/>
