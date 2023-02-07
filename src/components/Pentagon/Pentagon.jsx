@@ -1,9 +1,10 @@
 import "./Pentagon.css";
 
-export default function Pentagon( {filledColor, size, value, strokeSize} ) {
+export default function Pentagon( {filledColor, textColor, size, value, strokeSize} ) {
   const style = {
     width: size + "px",
-    height: size + "px"
+    height: size + "px",
+    color: textColor
   };
 
   const polygonStyle = {
