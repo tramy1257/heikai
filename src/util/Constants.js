@@ -8,7 +8,8 @@ export const GameState = {
   TAKE_OR_DITLIN: "TAKE_OR_DITLIN",
   ROLL_WILD: "ROLL_WILD",
   TAKE_OR_PASS: "TAKE_OR_PASS",
-  TAKE_DITLIN: "TAKE_DITLIN"
+  TAKE_DITLIN: "TAKE_DITLIN",
+  ENDED: "ENDED"
 }
 
 // HeiKai Config
@@ -20,6 +21,9 @@ export const HEIKAI_NOT_FILLED_COLOR = "white";
 export const MAX_DITLIN = 5;
 export const DITLIN_FILLED_COLOR = "darkgrey";
 export const DITLIN_NOT_FILLED_COLOR = "white";
+
+// Game Config
+export const MAX_FINISHED_LINE = 3;
 
 
 export const NumState = {
@@ -53,3 +57,5 @@ export const LineColor = [
   new BoxColor("#9BC7C5", "black", "#40716f"),
   new BoxColor("#EFEEEA", "black", "#868066")
 ]
+
+export const LineScore = [-25, -25, -10, -5, 5, 10, 15, 25, 35, 50, 70, 90, 120];

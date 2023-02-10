@@ -2,7 +2,7 @@ import Box from "../../components/Box/Box.jsx";
 import {NumState} from "../../util/Constants.js";
 import "./DiceLine.css";
 
-export default function DiceLine({ lineState, total, setDirection, selectedWildcardNum, boxClick }) {
+export default function DiceLine({ lineState, setDirection, selectedWildcardNum, boxClick }) {
     const canBeSelectAsWildcard = (num) => {
         return selectedWildcardNum === num && lineState.isAvailable(num);
     }
@@ -21,7 +21,7 @@ export default function DiceLine({ lineState, total, setDirection, selectedWildc
                         key={val + idx}/>)}
             </div>
             <div className="equalSign">=</div>
-            <Box className="totalBox" color={lineState.color} num={total} state={NumState.NONE} />
+            <Box className="totalBox" color={lineState.color} num={lineState.getLineScore()} state={NumState.NONE} />
             {lineState.heiKaiStartNumArr.map((startNum) => <div className="heiKaiTracker" style={{left: (startNum - 1) * 45 - 1}}></div>)}
         </div>
     );
