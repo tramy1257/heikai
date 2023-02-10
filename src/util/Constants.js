@@ -1,5 +1,16 @@
 export const LINE_SIZE = 12;
 
+// Game State
+export const GameState = {
+  ROLL_ALL: "ROLL_ALL",
+  TAKE_WILD_OR_PASS: "TAKE_WILD_OR_PASS",
+  ROLL_ALL_DITLIN: "ROLL_ALL_DITLIN",
+  TAKE_OR_DITLIN: "TAKE_OR_DITLIN",
+  ROLL_WILD: "ROLL_WILD",
+  TAKE_OR_PASS: "TAKE_OR_PASS",
+  TAKE_DITLIN: "TAKE_DITLIN"
+}
+
 // HeiKai Config
 export const MAX_HEIKAI = 10;
 export const HEIKAI_FILLED_COLOR = "darkgrey";
