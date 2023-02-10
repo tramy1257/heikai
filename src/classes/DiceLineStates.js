@@ -1,4 +1,4 @@
-import { LINE_SIZE, NumState, ScoreDir } from "../util/Constants";
+import { LineScore, LINE_SIZE, NumState, ScoreDir } from "../util/Constants";
 
 export default class DiceLineStates {
   color;
@@ -83,5 +83,20 @@ export default class DiceLineStates {
         ++i;
       }
     }
+  }
+
+  isFinished() {
+    return !this.stateArr.includes(NumState.NONE);
+  }
+
+  getLineScore() {
+    let takenCount = 0;
+    for (const state of this.stateArr) {
+      if (state === NumState.TAKEN) {
+        ++takenCount;
+      }
+    }
+
+    return LineScore[takenCount];
   }
 }

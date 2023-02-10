@@ -1,6 +1,6 @@
 import Ditlin from "../../components/Ditlin/Ditlin";
 import HeiKai from "../../components/HeiKai/HeiKai";
-import {GameState, LINE_SIZE, MAX_HEIKAI, NumState, ScoreDir} from "../../util/Constants.js";
+import {GameState, LINE_SIZE, MAX_DITLIN, MAX_FINISHED_LINE, MAX_HEIKAI, NumState, ScoreDir} from "../../util/Constants.js";
 import { LineColor } from "../../util/Constants";
 import DiceLine from "../DiceLine/DiceLine";
 import "./MainGame.css";
@@ -9,18 +9,38 @@ import Button from "../../components/Button/Button";
 import Dice from "../../components/Dice/Dice";
 import DiceLineStates from "../../classes/DiceLineStates";
 
+const defaultNumArr = Array(LINE_SIZE).fill(NumState.NONE);
+const defaultDiceLineStates = LineColor.map(color => new DiceLineStates(color, [...defaultNumArr]));
+const defaultDiceRollVals = Array(LineColor.length + 1).fill(1);
+
 const MainGame = () => {
-  const defaultNumArr = Array(LINE_SIZE).fill(NumState.NONE);
-  const defaultDiceLineStates = LineColor.map(color => new DiceLineStates(color, [...defaultNumArr]));
 
   const [diceLineStates, setDiceLineStates] = useState(defaultDiceLineStates);
-  const [diceRollVals, setDiceRollVals] = useState(Array(LineColor.length + 1).fill(1));
+  const [diceRollVals, setDiceRollVals] = useState(defaultDiceRollVals);
   const [ditlinCount, setDitlinCount] = useState(0);
   const [heikaiCount, setHeiKaiCount] = useState(0);
   const [selectedWildcardNum, setSelectedWildcardNum] = useState(null);
 
   const [taking, setTaking] = useState(false);
   const [gameState, setGameState] = useState(GameState.ROLL_ALL);
+  const [finishedLineCount, setFinishedLineCount] = useState(0);
+
+  useEffect(() => {
+    if (gameState === GameState.ROLL_ALL && checkGameEnd()) {
+      setGameState(GameState.ENDED);
+    }
+  }, [gameState])
+
+  const restartGame = () => {
+    setDiceLineStates(defaultDiceLineStates);
+    setDiceRollVals(defaultDiceRollVals);
+    setDitlinCount(0);
+    setHeiKaiCount(0);
+    setSelectedWildcardNum(null);
+    setTaking(false);
+    setGameState(GameState.ROLL_ALL);
+    setFinishedLineCount(0);
+  }
 
   const handleRollDices = () => {
     if (gameState === GameState.ROLL_ALL || gameState === GameState.ROLL_WILD || 
@@ -60,6 +80,10 @@ const MainGame = () => {
       stateCopy[idx].tryToTake(stateCopy[idx].selectedNum);
       stateCopy[idx].selectedNum = null;
 
+      if (stateCopy[idx].isFinished()) {
+        setFinishedLineCount(finishedLineCount + 1);
+      }
+
       setDiceLineStates(stateCopy);
       updateGameStateAfterTake();
     }
@@ -74,6 +98,9 @@ const MainGame = () => {
         currLine.selectedNum = diceVal;
       } else { // Taking number that is not first for this line
         if (currLine.tryToTake(diceVal)) { // If take sucessfully
+          if (currLine.isFinished()) {
+            setFinishedLineCount(finishedLineCount + 1);
+          }
           updateGameStateAfterTake();
         }
       }
@@ -143,6 +170,19 @@ const MainGame = () => {
     }
   }
 
+  const checkGameEnd = () => {
+    return ditlinCount >= MAX_DITLIN || finishedLineCount >= MAX_FINISHED_LINE;
+  }
+
+  const getFinalScore = () => {
+    let score = ditlinCount * -5 + heikaiCount * 5;
+    for (const line of diceLineStates) {
+      score += line.getLineScore();
+    }
+
+    return score;
+  }
+
   return (
       <div className="mainGame">
           <div className="mainGameLeft">
@@ -156,6 +196,7 @@ const MainGame = () => {
               </div>
               <HeiKai heikaiNum={heikaiCount}/>
               <Ditlin ditlinNum={ditlinCount}/>
+              {gameState === GameState.ENDED ? <div className="gameEnd">Game ended! Final Score: {getFinalScore()}</div> : null}
           </div>
           <div className="mainGameRight flexRow">
               <div className="diceDisplay">
@@ -178,6 +219,7 @@ const MainGame = () => {
                   <Button text="Roll Dices" onBtnClick={handleRollDices}/>
                   <Button text="Ditlin" onBtnClick={handleDitlin}/>
                   <Button text="Pass" onBtnClick={handlePass}/>
+                  <Button text="Restart" onBtnClick={restartGame}/>
               </div>
           </div>
       </div>
